@@ -26,8 +26,8 @@ Open: **http://localhost:8091/**
 ## What you do NOT need
 
 The NC file in `nc_output/` is pre-generated — it is the
-ground truth input for this task. You do not need to regenerate it. Your job is to fix the
-simulation that reads and visualises the existing NC file, not to produce new NC output.
+ground truth input for this task. You do not need to regenerate it. Do not produce new NC output, only fix the
+simulation that reads and visualises the existing NC file.
 
 ## What needs fixing — stock removal
 
