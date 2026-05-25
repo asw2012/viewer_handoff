@@ -1,0 +1,76 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100vh; overflow: hidden; font-family: Segoe UI, Arial, sans-serif; }
+:root { --ui-width: 340px; }
+body { display: grid; grid-template-columns: var(--ui-width) 8px 1fr; grid-template-rows: 1fr; background: #111; color: #eee; }
+#ui { padding: 12px; border-right: 1px solid #333; overflow-y: auto; overflow-x: hidden; min-height: 0; }
+#ui h1 { font-size: 18px; margin: 0 0 12px; }
+#ui h2 { font-size: 14px; margin: 12px 0 8px; }
+#ui details { margin: 8px 0; }
+#ui details summary { font-size: 14px; font-weight: bold; cursor: pointer; padding: 4px 0; user-select: none; }
+#ui details summary:hover { color: #8cf; }
+#ui details[open] summary { margin-bottom: 8px; }
+.optional-control { display: none !important; }
+.field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+.field.inline { flex-direction: row; align-items: center; gap: 8px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.grid2 label { display: flex; flex-direction: column; gap: 3px; font-size: 12px; }
+.grid3 { display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
+.grid3 label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; align-items: flex-start; }
+.grid3 input[type="range"] { width: 100%; }
+.vectorGrid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.vectorRow { display: grid; grid-template-columns: 90px 1fr; gap: 8px; align-items: center; font-size: 12px; }
+.vectorInputs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+.row { display: flex; gap: 8px; margin-bottom: 10px; }
+input, select, button { background: #1b1b1b; color: #eee; border: 1px solid #444; padding: 6px; border-radius: 4px; }
+button { cursor: pointer; }
+#status { white-space: pre-wrap; background: #171717; border: 1px solid #333; border-radius: 4px; padding: 8px; font-size: 12px; }
+#splitter {
+	background: #1a1a1a;
+	border-left: 1px solid #333;
+	border-right: 1px solid #333;
+	cursor: col-resize;
+}
+#splitter:hover { background: #242424; }
+#viewport { position: relative; overflow: hidden; min-height: 0; }
+#viewportToolbar {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	z-index: 10;
+	pointer-events: none;
+}
+#viewportToolbar button {
+	pointer-events: auto;
+}
+#axisHud {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 10;
+	padding: 8px 10px;
+	background: rgba(255, 255, 255, 0.5);
+	color: #000;
+	border: 1px solid rgba(0, 0, 0, 0.35);
+	border-radius: 4px;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1.4;
+	min-width: 120px;
+	pointer-events: none;
+}
+#axisHud div { display: flex; justify-content: space-between; gap: 8px; }
+#frameNote {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	z-index: 10;
+	padding: 5px 8px;
+	background: rgba(0, 0, 0, 0.55);
+	color: #ddd;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 4px;
+	font-size: 11px;
+	line-height: 1.3;
+	pointer-events: none;
+}
+canvas { display: block; width: 100%; height: 100%; max-height: 100vh; }

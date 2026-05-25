@@ -1,0 +1,130 @@
+{
+  "machine": {
+    "name": "grinding.OS_5_axis_grinder",
+    "root": "base"
+  },
+
+  "axis_model": {
+    "linear_axes": ["x_axis", "y_axis", "z_axis"],
+    "rotary_axes": ["a_axis", "c_axis"],
+    "controller_sign_convention": {
+      "x_axis": {
+        "positive_direction": "left",
+        "negative_direction": "right",
+        "units": "mm"
+      },
+      "y_axis": {
+        "positive_direction": "back",
+        "negative_direction": "front",
+        "units": "mm"
+      },
+      "z_axis": {
+        "positive_direction": "up",
+        "negative_direction": "down",
+        "units": "mm"
+      },
+      "c_axis": {
+        "view_reference": "top_view",
+        "positive_rotation": "ccw",
+        "negative_rotation": "cw",
+        "units": "deg"
+      },
+      "a_axis": {
+        "view_reference": "at_c_equals_0",
+        "positive_rotation": "ccw",
+        "negative_rotation": "cw",
+        "units": "deg"
+      }
+    }
+  },
+
+  "nodes": [
+    {
+      "name": "base",
+      "parent": null,
+      "geometry": "base.wrl",
+      "origin": [0.0, 0.0, 0.0],
+      "transform": {
+        "translation": [0.0, 0.0, 0.0],
+        "rotation_deg_xyz": [0.0, 0.0, 0.0]
+      }
+    },
+
+    {
+      "name": "x_axis",
+      "parent": "base",
+      "geometry": "x_slider.wrl",
+      "origin": [0.0, 0.0, 0.0],
+      "transform": {
+        "translation": [-30.0, 0.0, 0.0],
+        "rotation_deg_xyz": [0.0, 0.0, 0.0]
+      }
+    },
+
+    {
+      "name": "y_axis",
+      "parent": "base",
+      "geometry": "x_slider.wrl",
+      "origin": [0.0, 0.0, 0.0],
+      "transform": {
+        "translation": [181.78, 283.77, 723.43],
+        "rotation_deg_xyz": [0.0, 0.0, 0.0]
+      }
+    },
+
+    {
+      "name": "z_axis",
+      "parent": "y_axis",
+      "geometry": "x_slider.wrl",
+      "origin": [0.0, 0.0, 0.0],
+      "transform": {
+        "translation": [0.0, 0.0, 0.0],
+        "rotation_deg_xyz": [0.0, 0.0, 0.0]
+      }
+    },
+
+    {
+      "name": "c_axis",
+      "parent": "x_axis",
+      "geometry": "swing_workhead.wrl",
+      "origin": [0.0, 0.0, 0.0],
+      "transform": {
+        "translation": [0.0, 0.0, 396.0],
+        "rotation_deg_xyz": [0.0, 0.0, -90.0]
+      }
+    },
+
+    {
+      "name": "a_axis",
+      "parent": "c_axis",
+      "geometry": "swing_workhead.wrl",
+      "origin": [0.0, 0.0, 0.0],
+      "transform": {
+        "translation": [0.0, 0.0, 187.0],
+        "rotation_deg_xyz": [0.0, 0.0, 0.0]
+      }
+    },
+
+    {
+      "name": "spindle",
+      "parent": "z_axis",
+      "geometry": "spindle.wrl",
+      "origin": [0.0, 0.0, 0.0],
+      "transform": {
+        "translation": [0.0, 0.0, 0.0],
+        "rotation_deg_xyz": [0.0, 0.0, 0.0]
+      }
+    },
+
+    {
+      "name": "wheel",
+      "parent": "spindle",
+      "optionalGeometry": true,
+      "origin": [0.0, 0.0, 0.0],
+      "transform": {
+        "translation": [0.0, 0.0, 0.0],
+        "rotation_deg_xyz": [0.0, 0.0, 0.0]
+      }
+    }
+  ]
+}

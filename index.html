@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NC Orientation Viewer</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script async src="https://unpkg.com/es-module-shims@1.10.0/dist/es-module-shims.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <aside id="ui">
+    <h1>NC Orientation Viewer</h1>
+
+    <label class="field">
+      <span>Load NC file</span>
+      <input id="ncFile" type="file" accept=".nc,.txt,.tap,.gcode" />
+    </label>
+
+    <label class="field">
+      <span>NC Output Files</span>
+      <select id="ncSelect">
+        <option value="">(select from nc_output)</option>
+      </select>
+    </label>
+
+    <label class="field">
+      <span>Frame</span>
+      <input id="frameSlider" type="range" min="0" max="0" value="0" step="1" />
+      <small id="frameLabel">0 / 0</small>
+    </label>
+
+    <div class="row">
+      <button id="playBtn">Play</button>
+      <button id="pauseBtn">Pause</button>
+      <button id="resetBtn">Reset</button>
+    </div>
+
+    <label class="field">
+      <span>Speed: <small id="speedLabel">.15x</small></span>
+      <input id="speedSlider" type="range" min="0" max="5" value="0" step="1" list="speedTicks" />
+      <datalist id="speedTicks">
+        <option value="0" label=".15x"></option>
+        <option value="1" label=".25x"></option>
+        <option value="2" label=".5x"></option>
+        <option value="3" label=".75x"></option>
+        <option value="4" label="1x"></option>
+        <option value="5" label="2x"></option>
+      </datalist>
+    </label>
+    <!-- hidden legacy speed input for JS compat -->
+    <input id="speed" type="hidden" value="0.15" />
+
+    <label class="field">
+      <span>Show Sweep Wireframe</span>
+      <input id="sweepToggle" type="checkbox" checked />
+    </label>
+
+    <label class="field">
+      <span>Lock Sweep Axis</span>
+      <input id="sweepAxisToggle" type="checkbox" checked />
+    </label>
+
+    <details id="simBenchDetails">
+      <summary>Sim Benchmark</summary>
+      <div class="row">
+        <button id="simBenchBtn">Run Sim Benchmark</button>
+      </div>
+      <pre id="simBenchOut">No data yet.</pre>
+    </details>
+
+    <details id="axisOffsetsDetails">
+      <summary>Axis Offsets</summary>
+      <div class="grid2">
+        <label>X <input id="ox" type="number" value="0" step="0.1" /></label>
+        <label>Y <input id="oy" type="number" value="0" step="0.1" /></label>
+        <label>Z <input id="oz" type="number" value="0" step="0.1" /></label>
+        <label>A <input id="oa" type="number" value="0" step="0.1" /></label>
+        <label>C <input id="oc" type="number" value="0" step="0.1" /></label>
+      </div>
+      <button id="saveKinematicsBtn">Save Kinematics Inputs</button>
+    </details>
+
+    <!-- Axis Sign, Axis Direction Vectors, Mesh Basis Rotation, Mesh Pose: hidden (driven by kinematics_inputs.json) -->
+    <div style="display:none">
+      <input id="sx" type="number" value="1" />
+      <input id="sy" type="number" value="1" />
+      <input id="sz" type="number" value="1" />
+      <input id="sa" type="number" value="1" />
+      <input id="sc" type="number" value="1" />
+      <input id="xAxisDx" type="number" value="1" /><input id="xAxisDy" type="number" value="0" /><input id="xAxisDz" type="number" value="0" />
+      <input id="yAxisDx" type="number" value="0" /><input id="yAxisDy" type="number" value="1" /><input id="yAxisDz" type="number" value="0" />
+      <input id="zAxisDx" type="number" value="0" /><input id="zAxisDy" type="number" value="0" /><input id="zAxisDz" type="number" value="1" />
+      <input id="cAxisDx" type="number" value="0" /><input id="cAxisDy" type="number" value="0" /><input id="cAxisDz" type="number" value="-1" />
+      <input id="aAxisDx" type="number" value="1" /><input id="aAxisDy" type="number" value="0" /><input id="aAxisDz" type="number" value="0" />
+      <input id="basisRx" type="number" value="0" /><input id="basisRy" type="number" value="0" /><input id="basisRz" type="number" value="0" />
+      <select id="nodeSelect"><option value="base">base</option></select>
+      <input id="nodeRx" type="number" value="0" /><input id="nodeRxSlider" type="range" value="0" />
+      <input id="nodeRy" type="number" value="0" /><input id="nodeRySlider" type="range" value="0" />
+      <input id="nodeRz" type="number" value="0" /><input id="nodeRzSlider" type="range" value="0" />
+      <input id="nodeTx" type="number" value="0" /><input id="nodeTy" type="number" value="0" /><input id="nodeTz" type="number" value="0" />
+      <input id="pathToggle" type="checkbox" checked />
+    </div>
+
+    <button id="applyBtn" style="display:none">Apply Transform Settings</button>
+    <button id="applyBasisBtn" style="display:none">Apply Basis Rotation</button>
+    <button id="applyNodeRotBtn" style="display:none">Apply Mesh Pose</button>
+
+    <pre id="status">Load an NC file to begin.</pre>
+  </aside>
+
+  <div id="splitter" aria-label="Resize panels" role="separator"></div>
+
+  <main id="viewport">
+    <div id="viewportToolbar">
+      <button id="homeBtn">Home</button>
+    </div>
+    <div id="axisHud" aria-label="Axis values">
+      <div>X: <span id="hudX">0.000</span></div>
+      <div>Y: <span id="hudY">0.000</span></div>
+      <div>Z: <span id="hudZ">0.000</span></div>
+      <div>A: <span id="hudA">0.000</span></div>
+      <div>C: <span id="hudC">0.000</span></div>
+      <div>F (mm/min): <span id="hudF">-</span></div>
+    </div>
+    <div id="frameNote" aria-label="Frame convention note">World labels = Cartesian, machine motion = Syntec convention.</div>
+  </main>
+
+  <script type="module" src="./viewer.js?v=20260430bf"></script>
+</body>
+</html>

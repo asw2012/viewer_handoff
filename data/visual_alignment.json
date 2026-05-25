@@ -1,0 +1,82 @@
+{
+  "enabled": true,
+  "subassembly_overrides": {
+    "wheelhead": {
+      "nodes": [
+        "z_axis",
+        "c_axis",
+        "a_axis",
+        "spindle",
+        "wheel"
+      ],
+      "transform": {
+        "translation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_deg_xyz": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "workhead": {
+      "nodes": [
+        "a_axis",
+        "spindle"
+      ],
+      "transform": {
+        "translation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_deg_xyz": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "node_overrides": {
+    "a_axis": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_deg_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "spindle": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_deg_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "base": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_deg_xyz": [
+        180.0,
+        0.0,
+        90.0
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "_comment": "Per-node corrective rotations (degrees, Rx then Ry then Rz).",
+  "_comment2": "Keys must match node names in machine_definition.json.",
+  "_comment3": "Edit rx/ry/rz, run freecad_fix_wrl_one.py, inspect, repeat.",
+  "base":    { "rx": 180, "ry": 0, "rz": -90 },
+  "x_axis":  { "rx": 90, "ry": 0, "rz": 0 },
+  "y_axis":  { "rx": 90, "ry": 0, "rz": 0 },
+  "z_axis":  { "rx": 90, "ry": 0, "rz": 0 },
+  "c_axis":  { "rx": 90, "ry": 0, "rz": 0 },
+  "a_axis":  { "rx": 90, "ry": 0, "rz": 0 },
+  "spindle": { "rx": 90, "ry": 0, "rz": 0 }
+}

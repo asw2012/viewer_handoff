@@ -1,0 +1,12 @@
+{
+  "meshUnitScale": 1.0,
+  "spindleAxisDirection": [0.0, 1.0, 0.0],
+  "aAxisZeroAngleDegXyz": [0.0, 0.0, 0.0],
+  "machineBasisRotationDegXyz": [0.0, 0.0, 0.0],
+  "hideStaticXMesh": false,
+  "showMovingXMesh": false,
+  "showPivotMarkers": false,
+  "enableXTouchC90Compensation": false,
+  "enableLegacyMeshOverrides": true,
+  "visibleNodeMeshes": ["base", "x_axis", "c_axis", "spindle", "wheel"]
+}
